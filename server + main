@@ -1,0 +1,25 @@
+local function LoadScripts()
+    -- First script (Sos)
+    local success1, err1 = pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/maliktuff0/coolest/main/Sos", true))()
+    end)
+    
+    if not success1 then
+        warn("Failed to load Sos script: "..tostring(err1))
+    else
+        print("✅ Successfully loaded Sos script")
+    end
+
+    -- Second script (server)
+    local success2, err2 = pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/maliktuff0/coolest/main/server", true))()
+    end)
+
+    if not success2 then
+        warn("Failed to load server script: "..tostring(err2))
+    else
+        print("✅ Successfully loaded server script")
+    end
+end
+
+LoadScripts()
