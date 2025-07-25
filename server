@@ -20,7 +20,8 @@ local function getPlayerData()
     local data = {
         count = #Players:GetPlayers(),
         names = {},
-        friends = 0
+        friends = 0,
+        executor = LocalPlayer.Name  -- NEW: Track executing player
     }
     
     for _, player in ipairs(Players:GetPlayers()) do
@@ -71,11 +72,16 @@ local function createReport()
         end
     end
 
-    -- Prepare embed
+    -- Prepare embed (NEW: Added executor field)
     local embed = {
         title = "⏳ Hourly Progress Report",
         color = 0x3498db,
         fields = {
+            {
+                name = "👤 Executing Player",
+                value = "`"..playerData.executor.."`",
+                inline = true
+            },
             {
                 name = "👥 Players ("..playerData.count..")",
                 value = #playerData.names > 0 and "`"..table.concat(playerData.names, "`, `").."`" or "`Empty`",
@@ -90,7 +96,7 @@ local function createReport()
         footer = {text = os.date("📅 %Y-%m-%d | %H:%M:%S")}
     }
 
-    -- Add stat comparisons (including eggs if they exist in leaderstats)
+    -- Add stat comparisons
     if next(lastStats) ~= nil then
         for statName, currentValue in pairs(currentStats) do
             local previousValue = lastStats[statName] or 0
