@@ -67,14 +67,7 @@ else
     request = newRequest
 end
 
--- Auto-claim season rewards
-task.spawn(function()
-    while task.wait(0.2) do
-        game:GetService("ReplicatedStorage").Shared.Framework.Network.Remote.RemoteEvent:FireServer("ClaimSeason")
-    end
-end)
-
--- Performance optimizations (10 FPS REMOVED)
+-- Performance optimizations
 settings().Rendering.QualityLevel = 1
 
 for _, sound in pairs(game:GetService("SoundService"):GetDescendants()) do
@@ -107,6 +100,4 @@ getgenv().boardSettings = {
     GiantDiceDistance = 10,
 }
 getgenv().remainingItems = {}
-
--- BGSI Script (loads LAST)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/IdiotHub/Scripts/refs/heads/main/BGSI/main.lua"))()
