@@ -1,0 +1,134 @@
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local HttpService = game:GetService("HttpService")
+
+-- Webhooks (your URLs)
+local webhooks = {
+    "https://discord.com/api/webhooks/1381758749576003584/xkbWBGw4D8W-A0NhQ349dlxUtjbrckEoSssxopg1W5M7aEbzQb_0raB0s5kqRl7yzdY9",
+    "https://discord.com/api/webhooks/1381224335955722251/5l_0wkD_nlRKdNETKuMTed_lxC-q2faBkLwkdAhZ8mmaXdAsmNO2ebEZkx_zxdQJ4CJM"
+}
+
+-- Tracking System
+local lastStats = {}
+local lastPlayerData = {count = 0, friends = 0, names = {}}
+
+local function formatNumber(num)
+    return tostring(num):reverse():gsub("%d%d%d", "%1,"):reverse():gsub("^,", "")
+end
+
+local function getPlayerData()
+    local data = {
+        count = #Players:GetPlayers(),
+        names = {},
+        friends = 0
+    }
+    
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer then
+            table.insert(data.names, player.Name)
+            if LocalPlayer:IsFriendsWith(player.UserId) then
+                data.friends += 1
+            end
+        end
+    end
+    
+    return data
+end
+
+local function getCurrentStats()
+    local stats = {}
+    if LocalPlayer:FindFirstChild("leaderstats") then
+        for _, stat in ipairs(LocalPlayer.leaderstats:GetChildren()) do
+            stats[stat.Name] = tonumber(stat.Value) or 0
+        end
+    end
+    return stats
+end
+
+local function sendToWebhooks(data)
+    local payload = HttpService:JSONEncode(data)
+    for _, url in ipairs(webhooks) do
+        pcall(function()
+            http_request({
+                Url = url,
+                Method = "POST",
+                Headers = {["Content-Type"] = "application/json"},
+                Body = payload
+            })
+        end)
+    end
+end
+
+local function createReport()
+    local currentStats = getCurrentStats()
+    local playerData = getPlayerData()
+    local newPlayers = {}
+    
+    -- Detect new players
+    for _, name in ipairs(playerData.names) do
+        if not table.find(lastPlayerData.names, name) then
+            table.insert(newPlayers, name)
+        end
+    end
+
+    -- Prepare embed
+    local embed = {
+        title = "⏳ Hourly Progress Report",
+        color = 0x3498db,
+        fields = {
+            {
+                name = "👥 Players ("..playerData.count..")",
+                value = #playerData.names > 0 and "`"..table.concat(playerData.names, "`, `").."`" or "`Empty`",
+                inline = false
+            },
+            {
+                name = "🤝 Friends in Server",
+                value = "`"..playerData.friends.."`",
+                inline = true
+            }
+        },
+        footer = {text = os.date("📅 %Y-%m-%d | %H:%M:%S")}
+    }
+
+    -- Add stat comparisons (including eggs if they exist in leaderstats)
+    if next(lastStats) ~= nil then
+        for statName, currentValue in pairs(currentStats) do
+            local previousValue = lastStats[statName] or 0
+            local gain = currentValue - previousValue
+            
+            table.insert(embed.fields, {
+                name = statName,
+                value = string.format("`%s` → `%s` (+%s)", 
+                    formatNumber(previousValue),
+                    formatNumber(currentValue),
+                    formatNumber(gain)),
+                inline = true
+            })
+        end
+    else
+        -- First run: show current stats only
+        for statName, value in pairs(currentStats) do
+            table.insert(embed.fields, {
+                name = statName,
+                value = "`"..formatNumber(value).."`",
+                inline = true
+            })
+        end
+    end
+
+    sendToWebhooks({embeds = {embed}})
+    lastStats = currentStats
+    lastPlayerData = playerData
+end
+
+-- Initial setup
+lastStats = getCurrentStats()
+lastPlayerData = getPlayerData()
+
+-- First report (remove if unwanted)
+createReport()
+
+-- Scheduled reports every hour
+while task.wait(3600) do
+    pcall(createReport)
+end
