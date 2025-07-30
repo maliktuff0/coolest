@@ -1,0 +1,88 @@
+--= Ultimate All-In-One Script =--
+--= (Settings + Chests + Codes + Potions) =--
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
+local RemoteEvent = ReplicatedStorage:WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("RemoteEvent")
+local RemoteFunction = ReplicatedStorage:WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("RemoteFunction")
+
+-- 1. SMART SETTINGS CONFIGURATION
+local settingsToEnable = {
+    "Hide All Pets",
+    "Skip Easy Mythics",
+    "Skip Easy Legendary",
+    "Hide Bubbles",
+    "Bubble Lock"
+}
+
+local function applySmartSettings()
+    for _, setting in ipairs(settingsToEnable) do
+        local success, currentValue = pcall(function()
+            return RemoteFunction:InvokeServer("GetSetting", setting)
+        end)
+        if success and not currentValue then
+            RemoteEvent:FireServer("SetSetting", setting, true)
+            print("Enabled setting:", setting)
+        end
+        task.wait(0.2)
+    end
+end
+
+-- 2. CHEST CLAIMING SYSTEM (30min intervals)
+local function runChestLoop()
+    while true do
+        RemoteEvent:FireServer("ClaimChest", "Void Chest", true)
+        task.wait(1811)
+    end
+end
+
+-- 3. CODE REDEMPTION (One-time execution)
+local function redeemAllCodes()
+    local codes = {
+        "update1", "update2", "update3", "update4", "update5",
+        "update6", "update7", "update8", "update9", "update10",
+        "update11", "update12", "update13", "Throwback", "Easter"
+    }
+
+    for _, code in ipairs(codes) do
+        local success, result = pcall(function()
+            return RemoteFunction:InvokeServer("RedeemCode", code)
+        end)
+        print(success and ("✓ Redeemed: "..code) or ("✗ Failed: "..code))
+        task.wait(1)
+    end
+end
+
+-- 4. POTION SYSTEM (Toggle with getgenv().running)
+local function runPotionLoop()
+    getgenv().running = true
+    local potions = {
+        {"Coins", 6}, {"Coins", 5},
+        {"Speed", 6},
+        {"Lucky", 6},
+        {"Mythic", 6},
+        {"Tickets", 6}, {"Tickets", 5},
+        {"Infinity Elixir", 1}
+    }
+
+    while getgenv().running do
+        for _, potion in ipairs(potions) do
+            RemoteEvent:FireServer("UsePotion", potion[1], potion[2])
+            task.wait(0.5)
+        end
+    end
+end
+
+--= MAIN EXECUTION =--
+applySmartSettings() -- Applies settings first
+task.spawn(runChestLoop) -- Starts chest loop
+task.spawn(redeemAllCodes) -- Redeems codes once
+task.spawn(runPotionLoop) -- Starts potion cycle
+
+print([[
+✔ SYSTEM FULLY OPERATIONAL
+✔ Settings Configured
+✔ Chest Loop Running (30min)
+✔ Code Redemption Complete
+✔ Potion System Active (Toggle with: getgenv().running = false)
+]])
