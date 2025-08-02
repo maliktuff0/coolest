@@ -1,0 +1,95 @@
+-- Create the main GUI
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Create ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "DeltaCopyGUI"
+screenGui.Parent = playerGui
+
+-- Main frame
+local mainFrame = Instance.new("Frame")
+mainFrame.Name = "MainFrame"
+mainFrame.Size = UDim2.new(0, 150, 0, 80)
+mainFrame.Position = UDim2.new(0.5, -75, 0, 20)
+mainFrame.AnchorPoint = Vector2.new(0.5, 0)
+mainFrame.BackgroundColor3 = Color3.new(0, 0, 0)
+mainFrame.BorderColor3 = Color3.new(1, 0, 0)
+mainFrame.BorderSizePixel = 2
+mainFrame.Parent = screenGui
+
+-- Title label
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Name = "TitleLabel"
+titleLabel.Size = UDim2.new(1, 0, 0, 20)
+titleLabel.Position = UDim2.new(0, 0, 0, 0)
+titleLabel.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+titleLabel.BorderColor3 = Color3.new(1, 0, 0)
+titleLabel.BorderSizePixel = 1
+titleLabel.Text = "COPY TOOLS"
+titleLabel.TextColor3 = Color3.new(1, 0, 0)
+titleLabel.Font = Enum.Font.GothamBold
+titleLabel.TextSize = 14
+titleLabel.Parent = mainFrame
+
+-- Button container
+local buttonContainer = Instance.new("Frame")
+buttonContainer.Name = "ButtonContainer"
+buttonContainer.Size = UDim2.new(1, -10, 0, 50)
+buttonContainer.Position = UDim2.new(0, 5, 0, 25)
+buttonContainer.BackgroundTransparency = 1
+buttonContainer.Parent = mainFrame
+
+-- Copy Job ID button
+local copyJobIdButton = Instance.new("TextButton")
+copyJobIdButton.Name = "CopyJobIdButton"
+copyJobIdButton.Size = UDim2.new(1, 0, 0, 20)
+copyJobIdButton.Position = UDim2.new(0, 0, 0, 0)
+copyJobIdButton.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+copyJobIdButton.BorderColor3 = Color3.new(1, 0, 0)
+copyJobIdButton.BorderSizePixel = 1
+copyJobIdButton.Text = "COPY JOB ID"
+copyJobIdButton.TextColor3 = Color3.new(1, 1, 1)
+copyJobIdButton.Font = Enum.Font.Gotham
+copyJobIdButton.TextSize = 12
+copyJobIdButton.Parent = buttonContainer
+
+-- Copy Username button
+local copyUsernameButton = Instance.new("TextButton")
+copyUsernameButton.Name = "CopyUsernameButton"
+copyUsernameButton.Size = UDim2.new(1, 0, 0, 20)
+copyUsernameButton.Position = UDim2.new(0, 0, 0, 25)
+copyUsernameButton.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+copyUsernameButton.BorderColor3 = Color3.new(1, 0, 0)
+copyUsernameButton.BorderSizePixel = 1
+copyUsernameButton.Text = "COPY USERNAME"
+copyUsernameButton.TextColor3 = Color3.new(1, 1, 1)
+copyUsernameButton.Font = Enum.Font.Gotham
+copyUsernameButton.TextSize = 12
+copyUsernameButton.Parent = buttonContainer
+
+-- Button functionality
+copyJobIdButton.MouseButton1Click:Connect(function()
+    local jobId = game.JobId
+    if jobId ~= "" then
+        setclipboard(jobId)
+        local originalText = copyJobIdButton.Text
+        copyJobIdButton.Text = "COPIED!"
+        task.wait(1)
+        copyJobIdButton.Text = originalText
+    else
+        copyJobIdButton.Text = "NO JOB ID"
+        task.wait(1)
+        copyJobIdButton.Text = "COPY JOB ID"
+    end
+end)
+
+copyUsernameButton.MouseButton1Click:Connect(function()
+    local username = player.Name
+    setclipboard(username)
+    local originalText = copyUsernameButton.Text
+    copyUsernameButton.Text = "COPIED!"
+    task.wait(1)
+    copyUsernameButton.Text = originalText
+end)
