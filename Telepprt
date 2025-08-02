@@ -1,0 +1,87 @@
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local VirtualInputManager = game:GetService("VirtualInputManager")
+
+-- COMBINED FUNCTIONALITY:
+-- 1. Auto-teleports to specific coordinates
+-- 2. Spams E key repeatedly
+-- 3. Cycles through inventory slots 1-9
+
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+-- Configuration
+local targetPosition = Vector3.new(110.88, 3.00, -10.42)
+local spamE = true
+local teleportLoop = true
+local inventoryCycle = true
+local cycleSpeed = 0.5 -- seconds between slots
+
+-- Inventory slot keys
+local slotKeys = {
+    Enum.KeyCode.One,
+    Enum.KeyCode.Two,
+    Enum.KeyCode.Three,
+    Enum.KeyCode.Four,
+    Enum.KeyCode.Five,
+    Enum.KeyCode.Six,
+    Enum.KeyCode.Seven,
+    Enum.KeyCode.Eight,
+    Enum.KeyCode.Nine
+}
+
+-- Core Functions
+local function teleportToPosition()
+    if humanoidRootPart and teleportLoop then
+        humanoidRootPart.CFrame = CFrame.new(targetPosition)
+    end
+end
+
+local function pressKey(key)
+    VirtualInputManager:SendKeyEvent(true, key, false, nil)
+    task.wait(0.05)
+    VirtualInputManager:SendKeyEvent(false, key, false, nil)
+end
+
+local function spamEKey()
+    while spamE do
+        pressKey(Enum.KeyCode.E)
+        task.wait(0.1)
+    end
+end
+
+local function cycleInventory()
+    while inventoryCycle do
+        for _, key in ipairs(slotKeys) do
+            pressKey(key)
+            task.wait(cycleSpeed)
+        end
+    end
+end
+
+-- Main Execution
+coroutine.wrap(function()
+    -- Initialize character if not loaded
+    if not character then
+        character = player.CharacterAdded:Wait()
+        humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+    end
+
+    -- Start all functions
+    coroutine.wrap(spamEKey)()
+    coroutine.wrap(cycleInventory)()
+
+    -- Continuous teleport
+    while teleportLoop do
+        teleportToPosition()
+        RunService.Heartbeat:Wait()
+    end
+end)()
+
+-- Reconnect if character respawns
+player.CharacterAdded:Connect(function(newChar)
+    character = newChar
+    humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+end)
