@@ -34,8 +34,8 @@ getgenv().bgsInfConfig = {
     ENCHANT_TEAMUP_TIER = 3,
     AUTO_BOUNTY_RIFT = true,
     MIN_RIFT_MULTIPLIER = 10,
-    RIFT_EGGS = {"Hell Egg"},
-    SUMMON_RIFT_EGG = "Hell Egg",
+    RIFT_EGGS = {"Cyber Egg"},
+    SUMMON_RIFT_EGG = "Cyber Egg",
     SUMMON_RIFT_LUCK = 25,
     SUMMON_RIFT_TIME = 30,
 
