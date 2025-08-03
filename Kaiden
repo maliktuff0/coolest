@@ -54,11 +54,11 @@ getgenv().bgsInfConfig = {
     AUTO_BOUNTY_1X = false,
     AUTO_COLLECT_WORLD_REWARDS = false,
     IGNORE_SEASON_CHALLENGES = false,
-    AUTO_INDEX = {},
+    AUTO_INDEX = true,
 
     -- Webhook settings
     WEBHOOK_URL = "https://discord.com/api/webhooks/1397869104987111504/VTGvRil7MDwcWDoAGeX9ucmMV7Mq-HuwicyE8jWdyt4T96I_EQ3gRgIxEV8spO2nXSdL",
-    DISCORD_ID = "977766761053179934",
+    DISCORD_ID = "",
     WEBHOOK_NOTE = "",
     WEBHOOK_ODDS = "25m",
     SHOW_PET_WEBHOOK_USERNAME = true,
