@@ -1,5 +1,5 @@
 -- Ultimate All-In-One Script (Optimized & Silent)
-setfpscap(3)
+setfpscap(30)
 settings().Rendering.QualityLevel = 1
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
