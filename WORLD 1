@@ -2,7 +2,7 @@
 --= (Settings + Chests + Codes + Potions + Bubble Festival + Optimizations) =--
 
 -- Set performance optimizations first
-setfpscap(30)
+setfpscap(3)
 settings().Rendering.QualityLevel = 1
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
