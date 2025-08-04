@@ -1,5 +1,5 @@
 script_key = "XqUVAxhBRryMRCaREydzjksGtSsUpWkH"
-setfpscap(3)  -- Minimal FPS cap
+setfpscap(30)  -- Minimal FPS cap
 
 getgenv().bgsInfConfig = {
     -- Enabled Features
