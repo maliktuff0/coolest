@@ -1,64 +1,41 @@
 script_key = "XqUVAxhBRryMRCaREydzjksGtSsUpWkH"
-setfpscap(30)  -- Minimal FPS cap
+setfpscap(3)
 
 getgenv().bgsInfConfig = {
-    -- Enabled Features
-    ADD_FRIEND = true,  -- Auto Friend enabled
-    GIVE_BUBBLE_SHRINE = {"Coins", "Tickets", "Mythic", "Speed", "Lucky"},  -- Auto Shrine enabled
-    MIN_GIVE_BUBBLE_SHRINE = 2000,  -- Auto Shrine threshold
-
-    -- Super Chest (Enabled)
+    ADD_FRIEND = true,
+    AUTO_UPDATE_RESTART = true,
+    FOCUS_DICE = false,
+    SUPER_TICKET_MINIGAME = "Robot Claw",
+    GIVE_BUBBLE_SHRINE = {"Coins", "Tickets", "Mythic", "Speed", "Lucky"},
+    MIN_GIVE_BUBBLE_SHRINE = 2000,
+    PURCHASE_ALIENSHOP = true,
+    PURCHASE_BLACKMARKET = true,
+    PURCHASE_DICE_MERCHANT = true,
+    PURCHASE_TRAVELING_MERCHANT = true,
+    PURCHASE_STARSHOP_SLOT = 14,
+    RESTOCK_SHOP = "Festival Shop",
+    USE_ROYAL_KEY = true,
+    USE_DICE_KEY = false,
     USE_SUPER_KEY = true,
-
-    -- Auto Delete (Enabled with your original settings)
+    USE_MYSTERY_BOX = false,
     RARITY_TO_DELETE = {"Common", "Unique", "Rare", "Epic", "Legendary"},
+    RARITY_TO_SHINY = {"Common", "Unique", "Rare", "Epic", "Legendary"},
     MAX_LEGENDARY_TIER_TO_DELETE = 2,
     DELETE_LEGENDARY_SHINY = true,
     DELETE_LEGENDARY_MYTHIC = true,
-
-    -- Everything Else Disabled
-    AUTO_UPDATE_RESTART = false,
-    FOCUS_DICE = false,
-    SUPER_TICKET_MINIGAME = "None",
-    PURCHASE_ALIENSHOP = false,
-    PURCHASE_BLACKMARKET = false,
-    PURCHASE_DICE_MERCHANT = false,
-    PURCHASE_TRAVELING_MERCHANT = false,
-    PURCHASE_STARSHOP_SLOT = 0,
-    RESTOCK_SHOP = "None",
-    USE_ROYAL_KEY = false,
-    USE_DICE_KEY = false,
-    USE_GOLDEN_KEY = false,
-    USE_MYSTERY_BOX = false,
-    IGNORE_MYSTERY_BOX_GEM_CAP = false,
-    RARITY_TO_SHINY = {},
-    ENCHANT_TEAMUP = false,
-    ENCHANT_TEAMUP_TIER = 0,
-    AUTO_BOUNTY_RIFT = false,
-    MIN_RIFT_MULTIPLIER = 0,
-    RIFT_EGGS = {},
-    SUMMON_RIFT_EGG = "None",
-    SUMMON_RIFT_LUCK = 0,
-    SUMMON_RIFT_TIME = 0,
-    HATCH_1X_EGG = {},
-    ALWAYS_INFINITY_ELIXIR = false,
-    ALWAYS_EGG_ELIXIR = false,
-    ALWAYS_SECRET_ELIXIR = false,
-    INFINITY_EGG_TYPE = "None",
-    ENABLE_EXIT = false,
-    DO_BUBBLE_GUM = false,
-    IGNORE_WORLD_CHEST = true,
-    SERVERHOP_EGG = false,
-    IGNORE_EQUIP_BEST_PET = true,
-    AUTO_BOUNTY_1X = false,
-    AUTO_COLLECT_WORLD_REWARDS = false,
+    ENCHANT_TEAMUP = true,
+    ENCHANT_TEAMUP_TIER = 3,
+    AUTO_BOUNTY_RIFT = true,
+    MIN_RIFT_MULTIPLIER = 10,
+    RIFT_EGGS = {"Hell Egg"},
+    HATCH_1X_EGG = {"Hell Egg"},
+    ALWAYS_INFINITY_ELIXIR = true,
+    ALWAYS_EGG_ELIXIR = true,
+    ALWAYS_SECRET_ELIXIR = true,
     IGNORE_SEASON_CHALLENGES = true,
-    AUTO_INDEX = false,
-
-    -- Webhook (Active)
-    WEBHOOK_URL = "https://discord.com/api/webhooks/1397869104987111504/VTGvRil7MDwcWDoAGeX9ucmMV7Mq-HuwicyE8jWdyt4T96I_EQ3gRgIxEV8spO2nXSdL",
-    DISCORD_ID = "",
-    WEBHOOK_NOTE = "",
-    WEBHOOK_ODDS = "25m",
+    WEBHOOK_URL = "https://discord.com/api/webhooks/1400469457427632220/Ii2SL9L5Ixbh7czjLXiIKZMthn3nTNWXR7w0mFmcYgnutB6XTYUaZjZAoF0DgPh05Pno",
+    WEBHOOK_ODDS = "10m",
     SHOW_PET_WEBHOOK_USERNAME = true,
 }
+
+loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/e2d15fd8d5fd053a359cc3e296c68150.lua"))()
