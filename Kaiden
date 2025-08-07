@@ -4,7 +4,7 @@ setfpscap(3)
 getgenv().bgsInfConfig = {
     ADD_FRIEND = true,
     AUTO_UPDATE_RESTART = true,
-    FOCUS_DICE = false,
+    FOCUS_DICE = true,
     SUPER_TICKET_MINIGAME = "Robot Claw",
     GIVE_BUBBLE_SHRINE = {"Coins", "Tickets"},
     MIN_GIVE_BUBBLE_SHRINE = 100,
@@ -26,7 +26,7 @@ getgenv().bgsInfConfig = {
     ENCHANT_TEAMUP = true,
     ENCHANT_TEAMUP_TIER = 3,
     AUTO_BOUNTY_RIFT = true,
-    MIN_RIFT_MULTIPLIER = 10,
+    MIN_RIFT_MULTIPLIER = 5,
     RIFT_EGGS = {"Rainbow Egg"}, -- Changed from Hell Egg
     HATCH_1X_EGG = {"Candy Egg"}, -- Changed from Hell Egg
     ALWAYS_INFINITY_ELIXIR = true,
