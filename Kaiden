@@ -28,13 +28,13 @@ getgenv().bgsInfConfig = {
     AUTO_BOUNTY_RIFT = true,
     MIN_RIFT_MULTIPLIER = 10,
     RIFT_EGGS = {"Rainbow Egg"}, -- Changed from Hell Egg
-    HATCH_1X_EGG = {"Rainbow Egg"}, -- Changed from Hell Egg
+    HATCH_1X_EGG = {"Candy Egg"}, -- Changed from Hell Egg
     ALWAYS_INFINITY_ELIXIR = true,
     ALWAYS_EGG_ELIXIR = true,
     ALWAYS_SECRET_ELIXIR = true,
     IGNORE_SEASON_CHALLENGES = false, -- Changed from true
     WEBHOOK_URL = "https://discord.com/api/webhooks/1400469457427632220/Ii2SL9L5Ixbh7czjLXiIKZMthn3nTNWXR7w0mFmcYgnutB6XTYUaZjZAoF0DgPh05Pna", -- Fixed typo (Pno → Pna)
-    WEBHOOK_ODDS = "5m", -- Changed from 10m
+    WEBHOOK_ODDS = "1m", -- Changed from 10m
     SHOW_PET_WEBHOOK_USERNAME = true,
 }
 
