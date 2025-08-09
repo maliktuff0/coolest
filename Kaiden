@@ -29,9 +29,9 @@ getgenv().bgsInfConfig = {
     ENCHANT_TEAMUP = true,
     ENCHANT_TEAMUP_TIER = 3,
 
-    AUTO_BOUNTY_RIFT = true,
+    AUTO_BOUNTY_RIFT = false,
     MIN_RIFT_MULTIPLIER = 5, -- CHANGED FROM 10 → 5
-    HATCH_1X_EGG = {"Neon Egg"},
+    HATCH_1X_EGG = {"Infinity Egg"},
     ALWAYS_INFINITY_ELIXIR = true,
     ALWAYS_EGG_ELIXIR = false,
     ALWAYS_SECRET_ELIXIR = false,
