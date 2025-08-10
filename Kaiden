@@ -1,34 +1,38 @@
-local worlds = {"Seven Seas", "Blizzard Hills", "Poison Jungle", "Infernite Volcano"}
+local args = {"UnlockWorld", "Seven Seas"}
+game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
 
-local function MovementSequence(world)
-    local args = {"UnlockWorld", world}
-    game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
-    
-    args = {"WorldTeleport", world}
-    game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+local args = {"WorldTeleport", "Seven Seas"}
+game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
 
-    local player = game:GetService("Players").LocalPlayer
-    local character = player.Character or player.CharacterAdded:Wait()
-    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-    local tweenService = game:GetService("TweenService")
+local player = game:GetService("Players").LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+local humanoid = character:WaitForChild("Humanoid")
+local tweenService = game:GetService("TweenService")
 
-    local function TweenMove(cframe, duration)
-        tweenService:Create(humanoidRootPart, TweenInfo.new(duration, Enum.EasingStyle.Linear), {CFrame = cframe}):Play()
-        task.wait(duration)
-    end
+humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, false)
+humanoid.AutoRotate = false -- This is what you asked about
 
-    task.wait(0.5)
-    TweenMove(humanoidRootPart.CFrame * CFrame.new(0, 0, -100), 2.5)
-    TweenMove(humanoidRootPart.CFrame * CFrame.new(15, 0, 0), 0.5)
-    TweenMove(humanoidRootPart.CFrame * CFrame.new(0, 0, -45), 1.25)
-    
-    task.wait(10)
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/IdiotHub/Scripts/refs/heads/main/BGSI/main.lua"))()
+local function tweenToPosition(cframe, duration)
+    local tweenInfo = TweenInfo.new(duration, Enum.EasingStyle.Linear)
+    local tween = tweenService:Create(humanoidRootPart, tweenInfo, {CFrame = cframe})
+    tween:Play()
+    return tween.Completed:Wait()
 end
 
-while true do
-    for _, world in ipairs(worlds) do
-        MovementSequence(world)
-        task.wait(3600)
-    end
-end
+task.wait(1)
+
+local forward1 = humanoidRootPart.CFrame * CFrame.new(0, 0, -100)
+tweenToPosition(forward1, 5)
+
+local right = humanoidRootPart.CFrame * CFrame.new(15, 0, 0)
+tweenToPosition(right, 1)
+
+local forward2 = humanoidRootPart.CFrame * CFrame.new(0, 0, -45)
+tweenToPosition(forward2, 2.5)
+
+humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, true)
+humanoid.AutoRotate = true
+
+task.wait(5) -- 5 second delay before loading
+loadstring(game:HttpGet("https://raw.githubusercontent.com/IdiotHub/Scripts/refs/heads/main/BGSI/main.lua"))()
