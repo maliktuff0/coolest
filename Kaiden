@@ -1,49 +1,34 @@
-setfpscap(3)
+local worlds = {"Seven Seas", "Blizzard Hills", "Poison Jungle", "Infernite Volcano"}
 
-getgenv().bgsInfConfig = {
-    ADD_FRIEND = true,
-    AUTO_UPDATE_RESTART = true,
-    FOCUS_DICE = true,
-    SUPER_TICKET_MINIGAME = "",
-    GIVE_BUBBLE_SHRINE = {"Coins", "Tickets"},
-    MIN_GIVE_BUBBLE_SHRINE = 1000,
+local function MovementSequence(world)
+    local args = {"UnlockWorld", world}
+    game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
     
-    PURCHASE_ALIENSHOP = true,
-    PURCHASE_BLACKMARKET = true,
-    PURCHASE_DICE_MERCHANT = true,
-    PURCHASE_TRAVELING_MERCHANT = true,
-    PURCHASE_STARSHOP_SLOT = 14,
-    RESTOCK_SHOP = "Festival Shop",
+    args = {"WorldTeleport", world}
+    game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
 
-    USE_ROYAL_KEY = true,
-    USE_DICE_KEY = true,
-    USE_SUPER_KEY = false, -- DISABLED
-    USE_MYSTERY_BOX = true,
+    local player = game:GetService("Players").LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+    local tweenService = game:GetService("TweenService")
 
-    RARITY_TO_DELETE = {"Common", "Unique", "Rare", "Epic", "Legendary"},
-    RARITY_TO_SHINY = {"Common", "Unique", "Rare", "Epic", "Legendary"},
-    MAX_LEGENDARY_TIER_TO_DELETE = 3,
-    DELETE_LEGENDARY_SHINY = true,
-    DELETE_LEGENDARY_MYTHIC = true,
+    local function TweenMove(cframe, duration)
+        tweenService:Create(humanoidRootPart, TweenInfo.new(duration, Enum.EasingStyle.Linear), {CFrame = cframe}):Play()
+        task.wait(duration)
+    end
 
-    ENCHANT_TEAMUP = true,
-    ENCHANT_TEAMUP_TIER = 3,
+    task.wait(0.5)
+    TweenMove(humanoidRootPart.CFrame * CFrame.new(0, 0, -100), 2.5)
+    TweenMove(humanoidRootPart.CFrame * CFrame.new(15, 0, 0), 0.5)
+    TweenMove(humanoidRootPart.CFrame * CFrame.new(0, 0, -45), 1.25)
+    
+    task.wait(10)
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/IdiotHub/Scripts/refs/heads/main/BGSI/main.lua"))()
+end
 
-    AUTO_BOUNTY_RIFT = true,
-    MIN_RIFT_MULTIPLIER = 5, -- CHANGED FROM 10 → 5
-    HATCH_1X_EGG = {"Cyber Egg"},
-    ALWAYS_INFINITY_ELIXIR = true,
-    ALWAYS_EGG_ELIXIR = false,
-    ALWAYS_SECRET_ELIXIR = false,
-
-    IGNORE_SEASON_CHALLENGES = true,
-    IGNORE_EQUIP_BEST_PET = false,
-
-    WEBHOOK_URL = "https://discord.com/api/webhooks/1400469457427632220/Ii2SL9L5Ixbh7czjLXiIKZMthn3nTNWXR7w0mFmcYgnutB6XTYUaZjZAoF0DgPh05Pna",
-    DISCORD_ID = "1135837863603351573", -- YOUR ID SET
-    WEBHOOK_NOTE = "", -- NO NOTE
-    WEBHOOK_ODDS = "1m",
-    SHOW_PET_WEBHOOK_USERNAME = true,
-}
-
-loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/e1f274825da00b92599872de596f1fc0.lua"))()
+while true do
+    for _, world in ipairs(worlds) do
+        MovementSequence(world)
+        task.wait(3600)
+    end
+end
