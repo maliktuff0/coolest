@@ -4,14 +4,35 @@ game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framew
 local args = {"WorldTeleport", "Seven Seas"}
 game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
 
--- For changing dice settings, i believe you can understand without me having to explain
-getgenv().boardSettings = {
-    UseGoldenDice = true,
-    GoldenDiceDistance = 1,
-    DiceDistance = 6,
-    GiantDiceDistance = 10,
-}
+local player = game:GetService("Players").LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+local humanoid = character:WaitForChild("Humanoid")
+local tweenService = game:GetService("TweenService")
 
-getgenv().remainingItems = {} 
+humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, false)
+humanoid.AutoRotate = false -- This is what you asked about
 
+local function tweenToPosition(cframe, duration)
+    local tweenInfo = TweenInfo.new(duration, Enum.EasingStyle.Linear)
+    local tween = tweenService:Create(humanoidRootPart, tweenInfo, {CFrame = cframe})
+    tween:Play()
+    return tween.Completed:Wait()
+end
+
+task.wait(1)
+
+local forward1 = humanoidRootPart.CFrame * CFrame.new(0, 0, -100)
+tweenToPosition(forward1, 5)
+
+local right = humanoidRootPart.CFrame * CFrame.new(15, 0, 0)
+tweenToPosition(right, 1)
+
+local forward2 = humanoidRootPart.CFrame * CFrame.new(0, 0, -45)
+tweenToPosition(forward2, 2.5)
+
+humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, true)
+humanoid.AutoRotate = true
+
+task.wait(5) -- 5 second delay before loading
 loadstring(game:HttpGet("https://raw.githubusercontent.com/IdiotHub/Scripts/refs/heads/main/BGSI/main.lua"))()
