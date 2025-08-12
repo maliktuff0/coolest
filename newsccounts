@@ -1,13 +1,12 @@
-script_key = "XqUVAxhBRryMRCaREydzjksGtSsUpWkH"
-setfpscap(3)
+setfpscap(3)  -- number = fps
 
 getgenv().bgsInfConfig = {
     ADD_FRIEND = true,
     AUTO_UPDATE_RESTART = true,
-    FOCUS_DICE = true,
-    SUPER_TICKET_MINIGAME = "Robot Claw",
-    GIVE_BUBBLE_SHRINE = {"Coins", "Tickets", "Mythic", "Speed", "Lucky"},
-    MIN_GIVE_BUBBLE_SHRINE = 2000,
+    FOCUS_DICE = false,
+    SUPER_TICKET_MINIGAME = "",
+    GIVE_BUBBLE_SHRINE = {"Coins", "Tickets"},
+    MIN_GIVE_BUBBLE_SHRINE = 1000,
     
     PURCHASE_ALIENSHOP = true,
     PURCHASE_BLACKMARKET = true,
@@ -17,56 +16,38 @@ getgenv().bgsInfConfig = {
     RESTOCK_SHOP = "Festival Shop",
 
     USE_ROYAL_KEY = false,
-    USE_DICE_KEY = true,
+    USE_DICE_KEY = false,
     USE_SUPER_KEY = true,
-    USE_MYSTERY_BOX = true,
+    USE_MYSTERY_BOX = false,
 
     RARITY_TO_DELETE = {"Common", "Unique", "Rare", "Epic", "Legendary"},
     RARITY_TO_SHINY = {"Common", "Unique", "Rare", "Epic", "Legendary"},
-    MAX_LEGENDARY_TIER_TO_DELETE = 2,
+    MAX_LEGENDARY_TIER_TO_DELETE = 3,  -- (DO NOT Delete Tier 3+ shiny & mythic, use PETS_TO_DELETE instead)
     DELETE_LEGENDARY_SHINY = true,
     DELETE_LEGENDARY_MYTHIC = true,
 
-    ENCHANT_TEAMUP = false,
-    ENCHANT_TEAMUP_TIER = 3,
+    USE_GEMS_ENCHANT = true, -- Use gems to enchant tier 2/3 & secret (If no more reroll orbs left)
+ENCHANT_TEAMUP = false,  
+ENCHANT_TEAMUP_TIER = 1, 
+ENCHANT_HIGH_ROLLER = true,
+ENCHANT_SECRET_HUNTER = false,
+
 
     AUTO_BOUNTY_RIFT = true,
-    MIN_RIFT_MULTIPLIER = 10,
-    RIFT_EGGS = {"Cyber Egg"},
+    MIN_RIFT_MULTIPLIER = 5,
     HATCH_1X_EGG = {"Cyber Egg"},
     ALWAYS_INFINITY_ELIXIR = true,
-    ALWAYS_EGG_ELIXIR = true,
-    ALWAYS_SECRET_ELIXIR = true,
-    IGNORE_SEASON_CHALLENGES = true,
+    ALWAYS_EGG_ELIXIR = false,
+    ALWAYS_SECRET_ELIXIR = false,
 
-    SUMMON_RIFT_EGG = "Cyber Egg",
-    SUMMON_RIFT_LUCK = 25,
-    SUMMON_RIFT_TIME = 30,
+    IGNORE_SEASON_CHALLENGES = false,
+    IGNORE_EQUIP_BEST_PET = false,
 
     WEBHOOK_URL = "https://discord.com/api/webhooks/1400469457427632220/Ii2SL9L5Ixbh7czjLXiIKZMthn3nTNWXR7w0mFmcYgnutB6XTYUaZjZAoF0DgPh05Pna",
-    DISCORD_ID = "",
+    DISCORD_ID = "1135837863603351573",
     WEBHOOK_NOTE = "",
     WEBHOOK_ODDS = "1m",
     SHOW_PET_WEBHOOK_USERNAME = true,
 }
 
-loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/e2d15fd8d5fd053a359cc3e296c68150.lua"))()
-
-getgenv().running = true
-
-local potions = {
-    {"Coins", 6}, {"Coins", 5},
-    {"Speed", 6},
-    {"Lucky", 6},
-    {"Mythic", 6},
-    {"Tickets", 6}, {"Tickets", 5},
-    {"Infinity Elixir", 1}
-}
-
-while getgenv().running do
-    for _, potion in ipairs(potions) do
-        local args = {"UsePotion", potion[1], potion[2]}
-        game:GetService("ReplicatedStorage").Shared.Framework.Network.Remote.RemoteEvent:FireServer(unpack(args))
-        task.wait(0.5)
-    end
-end
+loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/e1f274825da00b92599872de596f1fc0.lua"))()
