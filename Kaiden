@@ -7,7 +7,7 @@ getgenv().gagConfig = {
     CLAIM_FOOD_CONNOISSEUR_REWARD = { "Culinarian Chest", "Gorilla Chef", "Gourmet Egg", "Sunny-Side Chicken", "Pet Shard Aromatic" },
     
     AUTO_UPDATE_RESTART = true,
-    REDEEM_CODES = {},
+    REDEEM_CODES = true,
     EXTRA_PET_SLOTS = 5,
     EXTRA_EGG_SLOTS = 5,
     ADD_FRIEND = true,
@@ -31,7 +31,7 @@ getgenv().gagConfig = {
     SKIP_HARVEST_MUTATIONS = {},
 
     KEEP_PETS = { "Gorilla Chef", "Junkbot", "Hotdog Daschund", "Sunny-Side Chicken", "Lobster Thermidor", ["Mochi Mouse"] = 2 , "Spaghetti Sloth", "French Fry Ferret", "Spaghetti Sloth", ["Starfish"] = 10, "Raiju", "Corrupted Kodama", "Kodama", "Rooster", "Capybara", ["Koi"] = 2, "Tanchozuru", "Seal", "Kitsune", "Corrupted Kitsune", "Kappa", "Dilophosaurus", "Spinosaurus", "Brontosaurus", "T-Rex", "Fennec Fox", "Blood Kiwi", "Peacock", ["Hamster"] = 2, "Disco Bee", "Raccoon", "Queen Bee", "Dragonfly", "Butterfly", "Mimic Octopus", "Red Fox", "Chicken Zombie" },
-    KEEP_PETS_WEIGHT = 1, -- Changed from 5 to 1
+    KEEP_PETS_WEIGHT = 1, 
 
     EQUIP_PETS = { ["Capybara"] = 1, "Starfish" },
     USE_PETS_FOR_UPGRADE_SLOT = { "Starfish" },
@@ -42,7 +42,7 @@ getgenv().gagConfig = {
     PET_WEBHOOK_URL = "https://discord.com/api/webhooks/1402202774988394506/nlBwt08iEA75Ahp3-uPNsgcYIwLnohYmnN5N5fzWVNWI4h4ranORxuvAVMQUkd1nw4rs",
     SEED_WEBHOOK_URL = "https://discord.com/api/webhooks/1402202782932533279/l5FUHzz0h4hfyjKqdQiBq1FOntagJJxDH2NRvgwoNyDEXT76zTa3268TQ5tsYXeqpcO6", 
     NOTIFY_PETS = { "Lobster Thermidor", "French Fry Ferret", "Corrupted Kitsune", "Kitsune", "Fennec Fox", "Disco Bee", "Raccoon", "Queen Bee", "Dragonfly", "Butterfly", "Mimic Octopus", "T-Rex", "Red Fox", "Spinosaurus"},
-    NOTIFY_PETS_WEIGHT = 5,
+    NOTIFY_PETS_WEIGHT = 1,
     DISCORD_ID = "977766761053179934",
     WEBHOOK_NOTE = "",
     SHOW_WEBHOOK_USERNAME = true,
