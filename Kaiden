@@ -7,7 +7,7 @@ getgenv().gagConfig = {
     CLAIM_FOOD_CONNOISSEUR_REWARD = { "Culinarian Chest", "Gorilla Chef", "Gourmet Egg", "Sunny-Side Chicken", "Pet Shard Aromatic" },
     
     AUTO_UPDATE_RESTART = true,
-    REDEEM_CODES = true,
+    REDEEM_CODES = {},
     EXTRA_PET_SLOTS = 5,
     EXTRA_EGG_SLOTS = 5,
     ADD_FRIEND = true,
