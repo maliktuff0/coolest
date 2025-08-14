@@ -25,10 +25,10 @@ getgenv().gagConfig = {
     KEEP_SEEDS_AFTER_MAX_PLANTS = { "Carrot" },
 
     BUY_EGGS = {"Mythical Egg", "Bug Egg", "Bee Egg", "Paradise Egg", "Uncommon Egg", "Rare Egg", ["Common Summer Egg"] = 20, ["Rare Summer Egg"] = 20},
-    PLANT_EGGS = { "Gourmet Egg", "Zen Egg", "Anti Bee Egg","Uncommon Egg", "Primal Egg", "Bug Egg", "Dinosaur Egg", "Paradise Egg", "Mythical Egg", "Common Summer Egg", "Oasis Egg", "Night Egg", "Bee Egg", "Rare Egg" },
+    PLANT_EGGS = { "Gourmet Egg", "Zen Egg", "Anti Bee Egg", "Primal Egg", "Bug Egg", "Dinosaur Egg", "Paradise Egg", "Mythical Egg", "Oasis Egg", "Night Egg" }, -- Removed Uncommon Egg and Rare Egg
 
     KEEP_PETS = { "Gorilla Chef", "Junkbot", "Hotdog Daschund", "Sunny-Side Chicken", "Lobster Thermidor", ["Mochi Mouse"] = 2 , "Spaghetti Sloth", "French Fry Ferret", "Spaghetti Sloth", ["Starfish"] = 10, "Raiju", "Corrupted Kodama", "Kodama", "Rooster", "Capybara", ["Koi"] = 2, "Tanchozuru", "Seal", "Kitsune", "Corrupted Kitsune", "Kappa", "Dilophosaurus", "Spinosaurus", "Brontosaurus", "T-Rex", "Fennec Fox", "Blood Kiwi", "Peacock", ["Hamster"] = 2, "Disco Bee", "Raccoon", "Queen Bee", "Dragonfly", "Butterfly", "Mimic Octopus", "Red Fox", "Chicken Zombie", "Bald Eagle", "Ankylosaurus", "Hyacinth Macaw" },
-    KEEP_PETS_WEIGHT = 0.1,
+    KEEP_PETS_WEIGHT = 2,
     KEEP_PETS_AGE = 90,
     EQUIP_PETS = { ["Capybara"] = 1, "Starfish", "Bald Eagle", ["Rooster"] = 2 },
     USE_PETS_FOR_UPGRADE_SLOT = { "Starfish" },
