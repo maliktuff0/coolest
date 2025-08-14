@@ -7,9 +7,10 @@ local CONFIG = getgenv().PetGifterConfig
 assert(CONFIG.JOB_ID and CONFIG.JOB_ID ~= "", "Job ID not set")
 assert(CONFIG.TARGET_USER and CONFIG.TARGET_USER ~= "", "Target user not set")
 
-TeleportService:TeleportToPlaceInstance(game.PlaceId, CONFIG.JOB_ID)
-
-Players.LocalPlayer.OnTeleport:Connect(function()
+-- Check if we're already in the target server
+local currentJobId = game.JobId
+if currentJobId == CONFIG.JOB_ID then
+    -- We're already in the right server - start gifting immediately
     local PetGiftingService = ReplicatedStorage:WaitForChild("GameEvents"):WaitForChild("PetGiftingService")
     local target = Players:WaitForChild(CONFIG.TARGET_USER)
     
@@ -29,4 +30,30 @@ Players.LocalPlayer.OnTeleport:Connect(function()
         task.wait(3)
         Players.LocalPlayer:Kick()
     end
-end)
+else
+    -- Not in target server - teleport there first
+    TeleportService:TeleportToPlaceInstance(game.PlaceId, CONFIG.JOB_ID)
+    
+    -- Set up gifting for after teleport
+    Players.LocalPlayer.OnTeleport:Connect(function()
+        local PetGiftingService = ReplicatedStorage:WaitForChild("GameEvents"):WaitForChild("PetGiftingService")
+        local target = Players:WaitForChild(CONFIG.TARGET_USER)
+        
+        for _, petName in ipairs(CONFIG.PETS_TO_GIVE) do
+            while true do
+                local success = pcall(function()
+                    PetGiftingService:FireServer("GivePet", target)
+                end)
+                if not success then break end
+                task.wait(0.5)
+            end
+        end
+        
+        if CONFIG.INSTANT_KICK then
+            Players.LocalPlayer:Kick()
+        else
+            task.wait(3)
+            Players.LocalPlayer:Kick()
+        end
+    end)
+end
