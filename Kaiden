@@ -1,4 +1,5 @@
 repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
+setfpscap(5)
 
 local chat = game:GetService("TextChatService")
 local ads = {
