@@ -1,62 +1,60 @@
-setfpscap(3)  -- number = fps
+repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
 
-getgenv().bgsInfConfig = {
-    ADD_FRIEND = true,
-    AUTO_UPDATE_RESTART = true,
-    FOCUS_DICE = true,
-    SUPER_TICKET_MINIGAME = "Robot Claw",
-    GIVE_BUBBLE_SHRINE = {"Coins", "Tickets"},
-    MIN_GIVE_BUBBLE_SHRINE = 1000,
-
-    PURCHASE_ALIENSHOP = true,
-    PURCHASE_BLACKMARKET = true,
-    PURCHASE_DICE_MERCHANT = true,
-    PURCHASE_TRAVELING_MERCHANT = true,
-    PURCHASE_STARSHOP_SLOT = 14,
-    RESTOCK_SHOP = "Festival Shop",
-
-    USE_ROYAL_KEY = false,
-    USE_DICE_KEY = true,
-    USE_SUPER_KEY = true,
-    USE_MYSTERY_BOX = true,
-
-    RARITY_TO_DELETE = {"Common", "Unique", "Rare", "Epic", "Legendary"},
-    RARITY_TO_SHINY = {"Common", "Unique", "Rare", "Epic", "Legendary"},
-    MAX_LEGENDARY_TIER_TO_DELETE = 2,  -- (DO NOT Delete Tier 3+ shiny & mythic, use PETS_TO_DELETE instead)
-    DELETE_LEGENDARY_SHINY = true,
-    DELETE_LEGENDARY_MYTHIC = true,
-
-    ENCHANT_TEAMUP = false,
-    ENCHANT_HIGH_ROLLER = false,
-    ENCHANT_TEAMUP_TIER = 3,
-
-    AUTO_BOUNTY_RIFT = true,
-    MIN_RIFT_MULTIPLIER = 5,
-    HATCH_1X_EGG = {"Infinity Egg"},
-    ALWAYS_INFINITY_ELIXIR = true,
-    ALWAYS_EGG_ELIXIR = true,
-    ALWAYS_SECRET_ELIXIR = false,
-
-    IGNORE_SEASON_CHALLENGES = false,
-    IGNORE_EQUIP_BEST_PET = false,
-    
-    MASTERY_PETS_LEVEL = 15,
-    MASTERY_BUFFS_LEVEL = 15,
-    MASTERY_SHOPS_LEVEL = 11,
-    MASTERY_MINIGAMES_LEVEL = 8,
-
-    ENABLE_EXIT = true,
-    DO_BUBBLE_GUM = true,
-    IGNORE_MYSTERY_BOX_GEM_CAP = true,
-    IGNORE_WORLD_CHEST = false,
-    INFINITY_EGG_TYPE = "World1",
-    AUTO_INDEX = {"The Overworld"},
-
-    WEBHOOK_URL = "https://discord.com/api/webhooks/1400469457427632220/Ii2SL9L5Ixbh7czjLXiIKZMthn3nTNWXR7w0mFmcYgnutB6XTYUaZjZAoF0DgPh05Pna",
-    DISCORD_ID = "1135837863603351573",
-    WEBHOOK_NOTE = "",
-    WEBHOOK_ODDS = "1m",
-    SHOW_PET_WEBHOOK_USERNAME = true,
+local chat = game:GetService("TextChatService")
+local ads = {
+    "JOIN SUPER GARDEN RRDsdT5w (put gg/ before it)",
+    "BEST TRADERS @ SUPER GARDEN RRDsdT5w (add gg/)", 
+    "PRO TRADING IN SUPER GARDEN RRDsdT5w (gg/ + this)"
 }
 
-loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/e1f274825da00b92599872de596f1fc0.lua"))()
+for i = 1, #ads do
+    chat.TextChannels.RBXGeneral:SendAsync(ads[i])
+    task.wait(1.2)
+end
+
+task.wait(5)
+
+script_key="VtbpDkuHCkkurTVnKpTKpOGfacehFlpu"
+setfpscap(3)
+
+getgenv().gagConfig = {
+    CRAFT_EVENT = { "Anti Bee Egg" },
+    BUY_TRAVELING_MERCHANT = { "Bee Egg", "Loquat", "Feijoa", "Pitcher Plant" },
+    MAX_EVENT_RESTOCK_SHECKLES = 48_000_001,
+    BUY_EVENT_SHOP = { "Sprout Egg", "Spriggan" },
+    AUTO_UPDATE_RESTART = true,
+    REDEEM_CODES = {},
+    EXTRA_PET_SLOTS = 5,
+    EXTRA_EGG_SLOTS = 5,
+    ADD_FRIEND = true,
+    OPEN_ALL_SEED_PACK = true,
+    MAX_PLANTS = 300,
+    DESTROY_UNTIL_MIN_PLANTS = 200,
+    DELETE_PLANTS_AFTER_MAX = { "Carrot" },
+    BUY_EGGS = { "Bug Egg", "Bee Egg", "Paradise Egg", "Mythical Egg", "Rare Summer Egg", "Common Summer Egg", "Rare Egg", "Uncommon Egg" },
+    PLANT_EGGS = { "Sprout Egg", "Gourmet Egg", "Corrupted Zen Egg", "Zen Egg", "Dinosaur Egg", "Primal Egg", "Anti Bee Egg", "Night Egg", "Bug Egg", "Paradise Egg", "Mythical Egg" },
+    BUY_SEED_SHOP = { "Romanesco", "Elder Strawberry", "Giant Pinecone", "Burning Bud", "Sugar Apple", "Ember Lily", "Beanstalk", "Cacao", "Pepper", "Mushroom", "Grape", "Mango", "Dragon Fruit", "Cactus", ["Coconut"] = 50, ["Bamboo"] = 50, ["Apple"] = 50, ["Pumpkin"] = 50, ["Watermelon"] = 50, ["Daffodil"] = 50, ["Tomato"] = 50, ["Orange Tulip"] = 50, ["Blueberry"] = 50, ["Strawberry"] = 50, ["Carrot"] = 50 },
+    KEEP_SEEDS = { "Carrot" },
+    KEEP_SEEDS_AFTER_MAX_PLANTS = {},
+    KEEP_PETS = { "Golden Goose", "Spriggan", "Junkbot", "Gorilla Chef", "Lobster Thermidor", "French Fry Ferret", "Mochi Mouse", "Corrupted Kitsune", "Raiju", "Mizuchi", "Kitsune", "Koi", "Bald Eagle", "Ankylosaurus", "Spinosaurus", "Brontosaurus", "T-Rex", "Seal", "Fennec Fox", "Disco Bee", "Raccoon", "Queen Bee", "Night Owl", "Dragonfly", "Butterfly", "Mimic Octopus", "Red Fox", "Hyacinth Macaw", "Pack Bee", "Petal Bee", "Bear Bee", "Hamster", "Blood Owl", "Cooked Owl", "Golden Bee", "Owl", "Firefly", "Chicken Zombie", ["Kodama"] = 6, ["Corrupted Kodama"] = 6, ["Blood Kiwi"] = 2, ["Capybara"] = 1, ["Starfish"] = 2, ["Rooster"] = 2, ["Sunny-Side Chicken"] = 2, ["Tanchozuru"] = 5, ["Kappa"] = 5 },
+    KEEP_PETS_WEIGHT = 7,
+    KEEP_PETS_AGE = 90,
+    EQUIP_PETS = { ["Sunny-Side Chicken"] = 8 },
+    USE_PETS_FOR_UPGRADE_SLOT = { "Starfish" },
+    REMOVE_PET_MAX_UPGRADE = { "Capybara", "Starfish" },
+    BUY_GEAR_SHOP = { "Grandmaster Sprinkler", "Master Sprinkler", "Godly Sprinkler", "Advanced Sprinkler", "Basic Sprinkler", "Trading Ticket" },
+    USE_SPRINKLER = { "Basic Sprinkler", "Master Sprinkler", "Godly Sprinkler", "Advanced Sprinkler", "Grandmaster Sprinkler" },
+    PET_WEBHOOK_URL = "https://discord.com/api/webhooks/1402202774988394506/nlBwt08iEA75Ahp3-uPNsgcYIwLnohYmnN5N5fzWVNWI4h4ranORxuvAVMQUkd1nw4rs",
+    SEED_WEBHOOK_URL = "https://discord.com/api/webhooks/1402202782932533279/l5FUHzz0h4hfyjKqdQiBq1FOntagJJxDH2NRvgwoNyDEXT76zTa3268TQ5tsYXeqpcO6", 
+    NOTIFY_PETS = { "Golden Goose", "Spriggan", "Gorilla Chef", "Lobster Thermidor", "French Fry Ferret", "Mochi Mouse", "Corrupted Kitsune", "Raiju", "Mizuchi", "Bald Eagle", "Koi", "Kitsune", "Fennec Fox", "Disco Bee", "Raccoon", "Queen Bee", "Night Owl", "Dragonfly", "Butterfly", "Mimic Octopus", "Red Fox", "Brontosaurus", "T-Rex", "Ankylosaurus", "Spinosaurus" },
+    NOTIFY_PETS_WEIGHT = 7,
+    DISCORD_ID = "1135837863603351573",
+    WEBHOOK_NOTE = "",
+    SHOW_WEBHOOK_USERNAME = true,
+    SHOW_WEBHOOK_JOBID = true,
+}
+
+loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/6cb882027ef5de19462b160764dcfb53.lua"))()
+
+task.wait(41)
+game:GetService("TeleportService"):Teleport(126884695634066)
