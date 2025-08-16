@@ -3,9 +3,9 @@ setfpscap(5)
 
 local chat = game:GetService("TextChatService")
 local ads = {
-    "JOIN SUPER GARDEN RRDsdT5w (put gg/ before it)",
-    "BEST TRADERS @ SUPER GARDEN RRDsdT5w (add gg/)", 
-    "PRO TRADING IN SUPER GARDEN RRDsdT5w (gg/ + this)"
+    "CHEAPEST PETS", 
+    "CHEAPEST ON MARKET", 
+    "KITSUNE GIVEAWAY"
 }
 
 for i = 1, #ads do
