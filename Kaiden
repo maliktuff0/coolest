@@ -1,11 +1,10 @@
 repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
-setfpscap(5)
 
 local chat = game:GetService("TextChatService")
 local ads = {
-    "CHEAPEST PETS", 
-    "CHEAPEST ON MARKET", 
-    "KITSUNE GIVEAWAY"
+    "🦖 CHEAP PETS RRDsdT5w (put gg/ before it)",
+    "💰 BEST SHOP RRDsdT5w (add gg/)", 
+    "🎁 KITSUNE GIVEAWAY RRDsdT5w (gg/ + this) 🦊"
 }
 
 for i = 1, #ads do
